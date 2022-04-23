@@ -4,14 +4,14 @@ const List = ({persons, filter}) => {
   
     return (
       <>
-        {filteredList.map( (person) => <Info key={person.name} name={person.name} phone={person.phone} />)}
+        {filteredList.map( (person) => <Info key={person.name} name={person.name} number={person.number} />)}
       </>
     )
 }
 
-const Info = ({name, phone}) => {
+const Info = ({name, number}) => {
     return (
-      <p>{name} {phone}</p>
+      <p>{name} {number}</p>
     )
   }
 
