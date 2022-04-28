@@ -16,11 +16,6 @@
       "id": 8
     },
     {
-      "name": "Juan",
-      "number": "234324",
-      "id": 9
-    },
-    {
       "name": "Pedro Martinez",
       "number": "1234",
       "id": 10
@@ -29,11 +24,6 @@
       "name": "Pedro Sosa",
       "number": "86787",
       "id": 11
-    },
-    {
-      "name": "Pablo",
-      "number": "2323",
-      "id": 12
     }
   ]
 }
