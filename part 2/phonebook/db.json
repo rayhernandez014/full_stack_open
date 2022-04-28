@@ -1,16 +1,6 @@
 {
   "persons": [
     {
-      "name": "ray",
-      "number": "679845",
-      "id": 3
-    },
-    {
-      "name": "Jose Martinez",
-      "number": "9798782",
-      "id": 5
-    },
-    {
       "name": "Juan Santos",
       "number": "987653",
       "id": 6
@@ -34,6 +24,16 @@
       "name": "Pedro Martinez",
       "number": "1234",
       "id": 10
+    },
+    {
+      "name": "Pedro Sosa",
+      "number": "86787",
+      "id": 11
+    },
+    {
+      "name": "Pablo",
+      "number": "2323",
+      "id": 12
     }
   ]
 }
