@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Input from './components/Input'
 import List from './components/List'
 import Form from './components/Form'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -11,29 +11,40 @@ const App = () => {
   const [filter, setFilter] = useState('')
 
   useEffect(() =>{
-    axios.get('http://localhost:3001/persons').then( 
-      (response) => {
-        setPersons(response.data)
+    personService.getAll().then( 
+      (initialPersons) => {
+        setPersons(initialPersons)
       }
     )
   },[])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const tempPerson={
+    const newPerson={
       name: newName,
       number: newNumber
     }
 
-    const nameList = persons.map( (person) => person.name)
+    const personToChange = persons.filter((person) => person.name.toLowerCase() === newPerson.name.toLowerCase())
 
-    if (nameList.includes(tempPerson.name)) {
-      window.alert(`${tempPerson.name} is already added to phonebook`)
+    if (personToChange.length !== 0) {
+      if (window.confirm(`${newPerson.name} is already added to phonebook. Do you want to replace the old number with a new one?`)){
+        const id = personToChange[0].id
+        personService.update(id, newPerson).then((returnedPerson) => {
+          setPersons(persons.map( (person) => person.id !== id ? person : returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        })
+      }
     }
     else{
-      setPersons(persons.concat(tempPerson))
-      setNewName('')
-      setNewNumber('')
+      personService.create(newPerson).then(
+        (returnedPerson) => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        }
+      )
     }
   }
 
@@ -49,6 +60,12 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  const handleDelete = (id) => {
+    personService.remove(id).then( () => {
+      setPersons(persons.filter(n => n.id !== id))
+    })
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -56,7 +73,7 @@ const App = () => {
       <h3>Add a new</h3>
       <Form onSubmit={handleSubmit} nameHandler={handleNameChange} numberHandler={handleNumberChange} newName={newName} newNumber={newNumber}/>
       <h3>Numbers</h3>
-      <List persons={persons} filter={filter} />
+      <List persons={persons} filter={filter} handleDelete={handleDelete}/>
     </div>
   )
 }

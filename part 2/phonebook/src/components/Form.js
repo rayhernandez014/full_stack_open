@@ -1,4 +1,5 @@
 import Input from './Input'
+import Button from './Button'
 
 const Form = ({onSubmit, nameHandler, numberHandler, newName, newNumber}) => {
 
@@ -11,7 +12,7 @@ const Form = ({onSubmit, nameHandler, numberHandler, newName, newNumber}) => {
             <Input text='Number:' value={newNumber} handler={numberHandler}/>
           </div>
           <div>
-            <button type="submit">add</button>
+            <Button text='add' type='submit'/>
           </div>
         </form>
       </>

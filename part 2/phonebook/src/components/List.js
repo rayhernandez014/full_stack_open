@@ -1,17 +1,18 @@
-const List = ({persons, filter}) => {
+import Button from './Button'
+const List = ({persons, filter, handleDelete}) => {
     
     const filteredList = persons.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()))
   
     return (
       <>
-        {filteredList.map( (person) => <Info key={person.name} name={person.name} number={person.number} />)}
+        {filteredList.map( (person) => <Info key={person.id} name={person.name} number={person.number} handleDelete={() => handleDelete(person.id)} />)}
       </>
     )
 }
 
-const Info = ({name, number}) => {
+const Info = ({name, number, handleDelete}) => {
     return (
-      <p>{name} {number}</p>
+      <p>{name} {number} <Button text='delete' type='Button' handler={handleDelete}/></p>
     )
   }
 
